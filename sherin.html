@@ -27,6 +27,24 @@
 {"@type":"Person","@id":"https://sherin.tech/#author","name":"Mohamed Rafeez","address":{"@type":"PostalAddress","addressLocality":"Ajman","addressCountry":"AE"},"sameAs":["https://github.com/rafeez1819"]}
 ]}
 </script>
+
+<!-- Cloudflare Turnstile Explicit JS Callback -->
+<script>
+  window.onloadTurnstileCallback = function () {
+    if (document.getElementById('turnstile-container')) {
+      turnstile.render('#turnstile-container', {
+        sitekey: '0x4AAAAAAFLkanWyU1SFLsaK',
+        theme: 'dark',
+        callback: function (token) {
+          console.log('Turnstile Token Generated:', token);
+        }
+      });
+    }
+  };
+</script>
+<!-- Cloudflare Turnstile Script -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit" async defer></script>
+
 <style>
 :root{--bg:#000;--panel:#0c0b09;--ink:#efe6d0;--mute:#a89d86;--g1:#f5dc93;--g2:#c9a24b;--g3:#7d5f20;--line:rgba(201,162,75,.3);--foil:linear-gradient(100deg,#f8e3a0 0%,#c9a24b 45%,#f1d98e 70%,#9a7a2c 100%);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
@@ -76,6 +94,12 @@ ol h3{margin:0 0 .4rem;font-size:1.15rem;color:var(--ink)}
 ol p{color:var(--mute);font-size:.98rem;margin:0}
 .note{margin-top:3rem;color:var(--g1);font-family:"Bodoni Moda",Georgia,serif;font-size:1.4rem;max-width:40rem}
 .repos{color:var(--mute)}
+.form-card{background:var(--panel);border:1px solid var(--line);padding:2rem;margin-top:2rem;border-radius:2px;max-width:36rem}
+.form-group{margin-bottom:1.2rem;display:flex;flex-direction:column;gap:.4rem}
+.form-group label{color:var(--g1);font-size:.95rem}
+.form-group input,.form-group textarea{background:#000;border:1px solid var(--line);color:var(--ink);padding:.8rem;font-family:inherit;font-size:1rem;border-radius:2px}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--g2);outline:none}
+#turnstile-container{margin:1.2rem 0;min-height:65px}
 footer{border-top:1px solid var(--line);padding:2.5rem 0 3rem;color:var(--mute);font-size:.95rem}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
 @media(max-width:860px){
@@ -96,7 +120,7 @@ section{padding:4rem 0}}
 <div class="wrap">
 <header class="top">
 <a class="brand" href="#top" aria-label="SHERIN AI home">SHERIN</a>
-<nav aria-label="Primary"><a href="#principles">Principles</a><a href="#path">How it thinks</a><a href="https://github.com/rafeez1819/Sherin-AI-Model">GitHub</a></nav>
+<nav aria-label="Primary"><a href="#principles">Principles</a><a href="#path">How it thinks</a><a href="#access">Access</a><a href="https://github.com/rafeez1819/Sherin-AI-Model">GitHub</a></nav>
 </header>
 
 <main id="top">
@@ -167,6 +191,26 @@ section{padding:4rem 0}}
 <p>Voice, vision, news, messaging and knowledge all grow from the same core.</p>
 <p class="repos">Sherin_TTS, SHFS, Emotional_Video_Assistance, Resolume_D-Capture, MediTalk and more.</p>
 <div class="btns"><a class="btn solid" href="https://github.com/rafeez1819">Explore the ecosystem</a></div>
+</section>
+
+<section id="access" aria-labelledby="a-h">
+<h2 id="a-h">Request Early Access</h2>
+<p>Connect to learn more about private, deployable SHERIN AI architecture instances.</p>
+<form class="form-card" action="/api/submit" method="POST">
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="you@domain.com" required />
+  </div>
+  <div class="form-group">
+    <label for="message">Message (Optional)</label>
+    <textarea id="message" name="message" rows="3" placeholder="Tell us about your use case..."></textarea>
+  </div>
+  
+  <!-- Cloudflare Turnstile Container Target -->
+  <div id="turnstile-container"></div>
+
+  <button type="submit" class="btn solid" style="width:100%;cursor:pointer;margin-top:.5rem">Submit Inquiry</button>
+</form>
 </section>
 </div>
 
